@@ -29,7 +29,7 @@ import '../src/assets/css/reset.css'
 Vue.config.productionTip = false;
 
 // axios请求默认url
-axios.defaults.baseURL = 'https://www.fyang.fun:12306';
+axios.defaults.baseURL = 'https://www.fyang.fun:81';
 
 // 全局引入日期格式化函数
 moment.locale('zh-cn');
