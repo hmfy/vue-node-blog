@@ -68,7 +68,6 @@
     import TagsCloud from "./components/TagsCloud"
     import LineList from "./components/LineList"
     import SubmitBlog from "./components/SubmitBlog";
-    import {getUserIP} from "./assets/js/util";
 
     export default {
         data(){
@@ -150,7 +149,7 @@
                 });
 
                 // ip地址初始化
-                let ip = await getUserIP();
+                let ip = this.$returnCitySN()['cip'];
                 store.commit('updateIp', ip);
                 sessionStorage.setItem('ip', ip.toString());
             }

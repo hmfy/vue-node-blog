@@ -29,12 +29,17 @@ import '../src/assets/css/reset.css'
 Vue.config.productionTip = false;
 
 // axios请求默认url
-axios.defaults.baseURL = 'https://www.fyang.fun:12306';
+axios.defaults.baseURL = 'https://www.fyang.fun:81';
 
 // 全局引入日期格式化函数
 moment.locale('zh-cn');
 Vue.prototype.$date_format = function (date) {
     return moment(date).format('lll') // 2020年1月5日 00:54 全局默认用这种格式
+};
+
+// returnCitySN 是在index.html中引入的js创建出的全局对象数据
+Vue.prototype.$returnCitySN = function () {
+    return returnCitySN
 };
 
 //库注入(全局使用)
