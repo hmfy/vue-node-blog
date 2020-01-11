@@ -28,6 +28,9 @@
                     <el-menu-item index="/login" v-if="isLogin && !phone">
                         <router-link to="/login" tag="div">登陆页</router-link>
                     </el-menu-item>
+                    <el-menu-item index="/showControll" v-if="isLogin && !phone">
+                        <router-link to="/showControll" tag="div">文章配置</router-link>
+                    </el-menu-item>
                 </el-menu>
             </div>
         </el-col>

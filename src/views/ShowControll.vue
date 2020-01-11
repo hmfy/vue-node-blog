@@ -86,12 +86,32 @@
 
         },
         methods: {
-            handleShow(index, row) {
+            async handleShow(index, row) {
                 // 展示
-                console.log(index, row);
+                try {
+                    await this.updateBlogShow(row, 1);
+                    this.$message.success('本条文章已展示!');
+                }catch (e) {
+                    console.log(e)
+                }
             },
-            handleHide(index, row) {
-                console.log(index, row);
+            async handleHide(index, row) {
+                try {
+                    await this.updateBlogShow(row, 0);
+                    this.$message.success('本条文章已隐藏!');
+                }catch (e) {
+                    console.log(e)
+                }
+            },
+            updateBlogShow (row, state) {
+                this.axios({
+                    method: 'post',
+                    url: '/updateBlogShow',
+                    data: {
+                        state,
+                        id: row.id
+                    }
+                })
             },
             getArticleList () {
                 /*
