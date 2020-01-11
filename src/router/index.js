@@ -43,6 +43,14 @@ const routes = [
         path: '/blogDetail',
         name: 'blogDetail',
         component: () => import('../views/BlogDetail')
+    },
+    {
+        path: '/showControll',
+        name: 'showControll',
+        component: () => import('../views/ShowControll'),
+        meta: {
+            login: true // 路由守卫时告诉此条路由需要验证
+        }
     }
 ];
 

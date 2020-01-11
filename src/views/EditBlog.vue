@@ -62,23 +62,6 @@
             }
         },
         name: "EditBlog",
-        beforeRouteUpdate(to, from, next) {
-            next(vm => {
-                if (vm.isLogin) {
-                    next()
-                } else {
-                    vm.$confirm('登陆后可查看,是否去登陆?', '温馨提示', {
-                        confirmButtonText: '好的',
-                        cancelButtonText: '算了',
-                        type: 'warning'
-                    }).then(() => {
-                        vm.$router.push("/login")
-                    }).catch(() => {
-                        next(from.path)
-                    })
-                }
-            })
-        },
         mounted() {
             /* 给配置页挂载一些本页面的方法 */
             /*const {submitContent, draw} = this;

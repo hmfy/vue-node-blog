@@ -13,7 +13,7 @@
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <div class="grid-content-small text-more-hidden"><a @click="readArticle($event)" :data-id="item['blog_id']">{{ item.comments }}</a></div>
+                        <div class="grid-content-small text-more-hidden"><a @click="readArticle($event)" :data-id="JSON.stringify(item)">{{ item.comments }}</a></div>
                     </el-col>
                 </el-row>
             </div>
@@ -37,11 +37,13 @@
         },
         methods: {
             readArticle (e) {
-                let id = e.target.getAttribute("data-id");
+                let info = e.target.getAttribute("data-id");
+                info = JSON.parse(info);
                 this.$router.push({
                     name: 'blogDetail',
                     params: {
-                        id
+                        id: info['blog_id'],
+                        commentId: info['id']
                     }
                 });
             }

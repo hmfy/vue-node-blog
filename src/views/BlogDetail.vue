@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="blog-detail">
         <el-card class="box-card">
             <div class="blog-title">
                 <h1>{{ currentArticle.title }}</h1>
@@ -27,7 +27,7 @@
             </div>
         </el-card>
         <!--评论区-->
-        <comments :arId="articleId" :refresh="commentState"/>
+        <comments :arId="articleId" :commentId="getCommentId" :refresh="commentState"/>
         <!--留言板-->
         <edit-comments :arId="articleId" :refresh="commentState" @refreshComments="updateList" v-on="$listeners"/>
     </div>
@@ -66,7 +66,10 @@
             }),
             ...mapGetters({
                 ip: "getIP"
-            })
+            }),
+            getCommentId () {
+                return this.$route.params["commentId"];
+            }
         },
         provide() {
             return {

@@ -4,7 +4,7 @@
             <div class="comments" v-for="(item, index) in comments">
                 <el-row>
                     <el-col :span="24">
-                        <div class="">
+                        <div ref="commentId" :data-id="item.id">
                             <span class="person-name" @click="changeState(item)"> {{ item.personName }}: </span>
                             {{ item.content }}
                         </div>
@@ -23,7 +23,7 @@
                 <div class="child" v-for="child in item.childList">
                     <el-row>
                         <el-col :span="24">
-                            <div class="">
+                            <div ref="commentId" :data-id="child.id">
                                 <span class="person-name" @click="changeState(child)"> {{ child.personName }}: </span>
                                 <span class="person-name reply-color" @click="changeState(child, $event)">
                                     {{ getParentName(child.parent, comments[index]) }}
@@ -61,6 +61,9 @@
         computed: {
             commentState () {
                 return this.$attrs["refresh"]
+            },
+            commentId () {
+                return this.$attrs['commentId']
             }
         },
         watch: {
@@ -172,6 +175,25 @@
                 this.formatComments();
             } catch (err) {
                 console.log(err);
+            }
+        },
+        updated() {
+            // 要跳转到第几条评论处
+            if (this.commentId) {
+                let elem = this.$refs[`commentId`];
+                for (let i = 0; i < elem.length; i ++) {
+                    let ele = elem[i];
+                    let id = ele.getAttribute('data-id');
+                    if (this.commentId == id) {
+                        // 同一个元素
+                        setTimeout(()=>{
+                            ele.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }, 0);
+                        break
+                    }
+                }
             }
         }
     }
