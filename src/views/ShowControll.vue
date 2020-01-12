@@ -60,12 +60,12 @@
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
-                            @click="handleShow(this, scope.$index, scope.row)" v-show="scope.row['is_show'] === 0">展示</el-button>
+                            @click="handleShow(scope.$index, scope.row)" v-show="scope.row['is_show'] === 0">展示</el-button>
                     <el-button
                             class="my-btn"
                             size="mini"
                             type="danger"
-                            @click="handleHide(this, scope.$index, scope.row)" v-if="scope.row['is_show'] === 1">隐藏</el-button>
+                            @click="handleHide(scope.$index, scope.row)" v-if="scope.row['is_show'] === 1">隐藏</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -73,7 +73,6 @@
 </template>
 
 <script>
-    import {debounce} from "../assets/js/util";
 
     export default {
         name: "Login",
@@ -86,7 +85,6 @@
 
         },
         methods: {
-            debounce,
             commitBlogLength (count) {
                 this.$store.commit('home/updateCount', count);
                 this.$store.commit('home/initVuex', {blogLength: count});
