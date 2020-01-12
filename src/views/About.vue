@@ -2,7 +2,7 @@
     <el-card class="box-card">
         <el-divider content-position="left">关于我</el-divider>
         <div class="about-me">
-            反正都是,空空,空空如也~
+            <h1>前端小学生, 在线写Vue</h1>
         </div>
         <el-divider content-position="left">联系我</el-divider>
         <div class="concat-me">
