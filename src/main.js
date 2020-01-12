@@ -28,8 +28,13 @@ import '../src/assets/css/reset.css'
 // 生产状态下信息提示
 Vue.config.productionTip = false;
 
-// axios请求默认url
-axios.defaults.baseURL = 'https://www.fyang.fun:81';
+// axios请求默认url (yarn serve 和 yarn build 时,cli会分别自动设置变量)
+if (process.env.NODE_ENV === 'development') {
+    axios.defaults.baseURL = 'http://127.0.0.1:88';
+}
+if (process.env.NODE_ENV === 'production') {
+    axios.defaults.baseURL = 'https://www.fyang.fun:81';
+}
 
 // 全局引入日期格式化函数
 moment.locale('zh-cn');

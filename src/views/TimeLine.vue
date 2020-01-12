@@ -105,7 +105,8 @@
             }).then(res => {
                 let newArr = [];
                 let newObj = {};
-                res.data.forEach(ele => {
+                console.log(res.data[0])
+                res.data[0].forEach(ele => {
                     let year = new Date(ele.ctime).getFullYear().toString();
                     if(!newObj[year]){
                         newObj[year] = true;
@@ -113,7 +114,7 @@
                     }
                 });
                 store.commit("time/getYearList", newArr);
-                res.data.forEach(ele=>{
+                res.data[0].forEach(ele=>{
                     let ctime = ele.ctime;
                     ele.ctime = this.$date_format(ctime);
                     ele.year = new Date(ctime).getFullYear();

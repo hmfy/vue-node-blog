@@ -66,3 +66,14 @@ export function timestampToTime(timestamp) {
     let s = date.getSeconds();
     return Y + M + D + h + m + s;
 }
+
+// 防抖
+export function debounce (func, delay = 1000) {
+    let timer = null;
+    return function (context = this, ...arg) {
+        clearTimeout(timer);
+        timer = setTimeout(()=>{
+            func.apply(context, arg);
+        }, 2000)
+    }
+}

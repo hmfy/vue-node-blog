@@ -50,6 +50,7 @@
                         this.itemList.push(ele);
                     });
                     callback(); // 改变busy,滚动继续加载
+                    console.log(this.busy, this.count, this.totalBlog)
                 }).catch(err => {
                     console.log(err);
                     callback(); // 改变busy,滚动继续加载

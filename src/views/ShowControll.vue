@@ -60,11 +60,12 @@
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
-                            @click="handleShow(scope.$index, scope.row)">编辑</el-button>
+                            @click="handleShow(this, scope.$index, scope.row)" v-show="scope.row['is_show'] === 0">展示</el-button>
                     <el-button
+                            class="my-btn"
                             size="mini"
                             type="danger"
-                            @click="handleHide(scope.$index, scope.row)">删除</el-button>
+                            @click="handleHide(this, scope.$index, scope.row)" v-if="scope.row['is_show'] === 1">隐藏</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -72,8 +73,7 @@
 </template>
 
 <script>
-    import {mapState, mapGetters} from "vuex"
-    import {setStorageLogin} from "../assets/js/util";
+    import {debounce} from "../assets/js/util";
 
     export default {
         name: "Login",
@@ -86,25 +86,40 @@
 
         },
         methods: {
+            debounce,
+            commitBlogLength (count) {
+                this.$store.commit('home/updateCount', count);
+                this.$store.commit('home/initVuex', {blogLength: count});
+                sessionStorage.setItem('blogLength', count.toString());
+            },
             async handleShow(index, row) {
                 // 展示
                 try {
-                    await this.updateBlogShow(row, 1);
-                    this.$message.success('本条文章已展示!');
+                    let result = await this.updateBlogShow(row, 1);
+                    this.getArticleList(
+                        () => {this.$message.success('本条文章已展示!')}
+                    );
+                    let count = result.data[3][0].blogLength;
+                    this.commitBlogLength(count);
                 }catch (e) {
                     console.log(e)
                 }
             },
             async handleHide(index, row) {
                 try {
-                    await this.updateBlogShow(row, 0);
-                    this.$message.success('本条文章已隐藏!');
+                    let result = await this.updateBlogShow(row, 0);
+                    this.getArticleList(
+                        () => {this.$message.error('本条文章已隐藏!')}
+                    );
+                    // 更新totalcount
+                    let count = result.data[3][0].blogLength;
+                    this.commitBlogLength(count);
                 }catch (e) {
                     console.log(e)
                 }
             },
             updateBlogShow (row, state) {
-                this.axios({
+                return this.axios({
                     method: 'post',
                     url: '/updateBlogShow',
                     data: {
@@ -113,26 +128,38 @@
                     }
                 })
             },
-            getArticleList () {
+            getArticleList (cb = ()=>{}) {
                 /*
                 *  请求文章列表信息
                 * */
-                return this.axios({
+                this.axios({
                     url: '/getArticleList'
+                }).then(res => {
+                    res.data[1].forEach(ele => {
+                        ele['ctime'] = this.$date_format(ele['ctime']);
+                    });
+
+                    let data = res.data[1];
+                    if (this.tableData.length) {
+                        this.tableData.forEach((ele, index) => {
+                            let newObj = data[index];
+                            ele['is_show'] = newObj['is_show']; // 只需要更改is_show
+                        })
+                    } else {
+                        this.tableData = [...data]
+                    }
+                    cb();
+                }).catch(err => {
+                    console.log(err)
                 })
             }
         },
-        async created() {
+        created() {
             const store = this.$store;
             store.commit("setLeftTagsLine", {
                 leftCol: 20
             });
-
-            const res = await this.getArticleList();
-            res.data && res.data.forEach(ele => {
-                ele['ctime'] = this.$date_format(ele['ctime']);
-            });
-            this.tableData = res.data;
+            this.getArticleList();
         }
     }
 </script>
@@ -142,5 +169,9 @@
         font-size: 20px;
         color: black;
         font-weight: bold;
+    }
+
+    .my-btn.el-button{
+        margin-left: 0px;
     }
 </style>

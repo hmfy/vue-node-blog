@@ -4,7 +4,7 @@
          v-infinite-scroll="load"
          infinite-scroll-disabled="disabled"
          infinite-scroll-distance="100"
-         infinite-scroll-delay="100">
+         infinite-scroll-delay="50">
         <el-container>
             <!--顶部导航-->
             <el-header height="40px">
