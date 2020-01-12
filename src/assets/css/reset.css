@@ -91,3 +91,7 @@ editor-teset
     overflow-x: scroll;
     white-space: pre;
 }
+
+.blog-detail .box-card .ql-snow .ql-editor pre.ql-syntax::-webkit-scrollbar {
+    display: none;
+}
