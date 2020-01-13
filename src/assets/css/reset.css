@@ -83,6 +83,10 @@ editor-teset
     /*font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;*/
 }
 
+.ql-editor {
+    line-height: 2;
+}
+
 .el-message.small-message {
     min-width: 100px !important;
 }
@@ -90,6 +94,7 @@ editor-teset
 .blog-detail .box-card .ql-snow .ql-editor pre.ql-syntax {
     overflow-x: scroll;
     white-space: pre;
+    line-height: 1.4;
 }
 
 .blog-detail .box-card .ql-snow .ql-editor pre.ql-syntax::-webkit-scrollbar {
