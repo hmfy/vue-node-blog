@@ -40,10 +40,11 @@
             getContent () {
                 // 提取代码段之前的内容,并过滤图片
                 let str = this.article.content;
-                str = str.indexOf('<pre') > 0 ? str.substr(0, str.indexOf('<pre')) : str;
-                str = str.replace(/<\/?\w{0,5}|\d{0,5}>/mg, "");// 替换标签
-                str = str.replace(/<img>.*<\/img>/img, ""); // 过滤图片base64
-                return str
+                let reg = /<pre.*<\/pre>/smg;
+                str = str.replace(reg, ''); // 不展示pre内的任意代码
+                let temp = document.createElement('div');
+                temp.innerHTML = str;
+                return temp.innerText
             }
         }
     }

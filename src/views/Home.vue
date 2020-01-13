@@ -44,7 +44,6 @@
                 }).then(res => {
                     this.itemList.length = 0;
                     res.data.forEach(ele=>{
-                        ele.content = ele.content.substr(0, 200);
                         ele.ctime = this.$date_format(ele.ctime);
                         ele.utime = ele.utime && this.$date_format(ele.utime);
                         this.itemList.push(ele);
