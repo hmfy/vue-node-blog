@@ -97,7 +97,7 @@
     .concat-me,
     .about-me {
         overflow: auto;
-        padding: 15px;
+        padding: 15px 15px 0;
     }
 
     .about-me .show-about-me,
