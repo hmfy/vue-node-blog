@@ -186,7 +186,8 @@
 
 <style scoped>
     /* 背景色 */
-    .el-container {
+    .el-container,
+    #app {
         --gradient-start: #F0EFF0;
         --gradient-start-text: '#F0EFF0';
         --gradient-end: #FAF8F9;
